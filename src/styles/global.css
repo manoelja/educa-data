@@ -1,0 +1,447 @@
+:root {
+  /* ============ Tema padrão: QUADRO VERDE (moldura de madeira clara) ============
+     O quadro **é** o fundo da página inteira: superfície verde de lousa escolar
+     com moldura de madeira, e todo o conteúdo passa por cima dele — o corpo da
+     página é recuado por `--board-frame`, então nada encosta na moldura.
+     A variante escura (ardósia com moldura escura) fica em `html.dark-theme`.
+     NOTA: sem `color-scheme` — no Chrome Android ele pinta a borda inferior
+     do navegador de preto puro (#000), criando faixa visível no mobile. */
+  --bg-color: #1a3a2a;
+  --paper: #1f4232;
+  --paper-deep: #142e22;
+  --bg-secondary: rgba(20, 40, 31, 0.72);
+  --accent-color: #f0d27a; /* giz amarelo — o acento único */
+  --accent-soft: rgba(240, 210, 122, 0.12);
+  --accent-hover: #f7e3a8;
+  --text-primary: #f1f6f1; /* giz branco */
+  --text-secondary: #c2d6c8;
+  --card-bg: rgba(246, 250, 246, 0.045);
+  --card-border: rgba(241, 246, 241, 0.2);
+  --glass-bg: rgba(24, 46, 36, 0.88);
+
+  /* ============ Cena de fundo ============
+     `--scene-intensity` é o botão único de calibração: 0 desliga a cena,
+     1 é o padrão, 0.5 deixa tudo pela metade. */
+  --scene-intensity: 1;
+
+  /* As cores do giz — mesmos valores de `lib/scene/chalk.ts` */
+  --chalk-1: #eef3ee;
+  --chalk-2: #f2cf72;
+  --chalk-3: #8fd0e8;
+  --chalk-4: #eda2b4;
+  --chalk-5: #9edda8;
+
+  /* Quadro verde escuro */
+  --board-1: #1e4434;
+  --board-2: #17362a;
+  --board-3: #102a20;
+
+  /* A moldura de madeira clara — topo e esquerda pegam a luz */
+  --frame-1: #e8d0a6;
+  --frame-2: #d3ae79;
+  --frame-3: #b98f5d;
+  --frame-4: #9b7245;
+  --frame-grain: rgba(122, 86, 46, 0.22);
+  --frame-joint: rgba(60, 38, 16, 0.45);
+  /* Largura da moldura: é ela que recua o conteúdo da página (cresce com a
+     tela, como a moldura real da referência) */
+  --board-frame: clamp(13px, 1.6vw, 30px);
+
+  /* O traço dos micro-gráficos das seções */
+  --curve-color: #f0d27a;
+  --curve-fill: rgba(240, 210, 122, 0.08);
+
+  /* Par frio do acento — giz ciano, não um segundo acento */
+  --lavender: #8fd0e8;
+  --lavender-soft: rgba(143, 208, 232, 0.12);
+
+  /* Cores de giz para os estados */
+  --success: #9edda8;
+  --warning: #f2cf72;
+  --error: #eda2b4;
+  --info: #8fd0e8;
+  --success-soft: rgba(158, 221, 168, 0.14);
+  --warning-soft: rgba(242, 207, 114, 0.14);
+  --info-soft: rgba(143, 208, 232, 0.14);
+
+  /* Transitions */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s ease;
+
+  /* Gradients */
+  --title-gradient: linear-gradient(180deg, #ffffff 0%, #f0d27a 100%);
+
+  /* Border radius */
+  --cyber-radius: 6px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 100px;
+
+  /* Typography */
+  --card-title-size: 1.1rem;
+  --card-title-weight: 800;
+  --card-body-size: 0.9rem;
+  --card-body-weight: 400;
+  --card-body-line-height: 1.6;
+  --card-label-size: 0.65rem;
+  --card-label-weight: 800;
+
+  /* Spacing */
+  --card-padding: 1.2rem;
+  --card-gap: 0.8rem;
+
+  /* Sombras — profundas e curtas: sobre um quadro, o card levantado no hover
+     projeta sombra; em repouso (transparente) não projeta nada. */
+  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.55);
+}
+
+/* ============ Variante: ARDÓSIA ESCURA (mesma cena, moldura nogueira) ============ */
+html.dark-theme {
+  --bg-color: #0c1a15;
+  --paper: #0f2019;
+  --paper-deep: #071410;
+  --bg-secondary: rgba(9, 22, 18, 0.72);
+  --glass-bg: rgba(7, 18, 14, 0.86);
+  --card-bg: rgba(238, 243, 238, 0.035);
+  --card-border: rgba(238, 243, 238, 0.16);
+  --text-secondary: #a8bcb2;
+
+  /* Ardósia escura */
+  --board-1: #17281f;
+  --board-2: #0e1d17;
+  --board-3: #0a1611;
+
+  /* Madeira escura */
+  --frame-1: #6d5133;
+  --frame-2: #55402a;
+  --frame-3: #3f2f1e;
+  --frame-4: #2d2114;
+  --frame-grain: rgba(0, 0, 0, 0.28);
+  --frame-joint: rgba(0, 0, 0, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Desativa transições durante a troca de tema — as cores vêm de variáveis de
+   :root e, sem isso, o navegador re-animaria toda a página (transition: all +
+   backdrop-filter), causando atraso perceptível no mobile. */
+html.no-theme-transition,
+html.no-theme-transition * {
+  transition: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow: hidden;
+  height: 100vh;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  height: 100vh;
+  margin: 0;
+}
+
+::selection {
+  background: var(--accent-color);
+  color: #10201a;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Scrollbar — estilo giz nas seções com overflow */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(238, 243, 238, 0.35);
+  border-radius: 2px;
+  box-shadow: 0 0 4px 1px rgba(238, 243, 238, 0.15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(238, 243, 238, 0.6);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(238, 243, 238, 0.35) transparent;
+}
+
+/* ============ Layout ============ */
+.App {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.app-track {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100vh;
+  height: 100dvh; /* acompanha a barra do navegador no mobile */
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cada seção = tela inteira. Na vertical ela é o scroller: no mobile o dedo
+   rola o conteúdo da seção (overflow-y), enquanto na horizontal o overflow
+   some — o gesto lateral é dos painéis (handleTouchEnd em App.tsx). */
+.app-section {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* sem a barra do navegador escondendo o fim da seção */
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* A rolagem interna existe, mas a barra some: com ela visível, mobile e
+     desktop mostravam uma linha clara na beirada entre as seções. */
+  scrollbar-width: none;
+  /* Sem pull-to-refresh/bounce do navegador ao chegar nas bordas */
+  overscroll-behavior: none;
+}
+
+.app-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hero: centralizado */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Demais seções */
+.about,
+.sources,
+.analyses,
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 3rem 2rem;
+}
+
+.cta-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 3rem 2rem;
+}
+
+.container {
+  position: relative;
+  /* Acima da cena de fundo e dos recortes de cada seção */
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+section {
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  background: var(--accent-soft);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 800;
+  background: var(--title-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* ============ Botões ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background: var(--accent-color);
+  /* Sobre o giz amarelo o texto é a ardósia, não o branco */
+  color: #10201a;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--card-border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: var(--accent-soft);
+}
+
+/* ============ Cards ============ */
+/* Cards transparentes: o quadro aparece através deles — a leitura vem da borda
+   + do leve blur, não de uma superfície sólida. */
+.card {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: var(--card-padding);
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-label {
+  font-size: var(--card-label-size);
+  font-weight: var(--card-label-weight);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
+.card-title {
+  font-size: 0.9rem;
+  font-weight: var(--card-title-weight);
+  margin: 0.3rem 0;
+}
+
+.card-text {
+  font-size: 0.75rem;
+  font-weight: var(--card-body-weight);
+  line-height: var(--card-body-line-height);
+  color: var(--text-secondary);
+}
+
+.desktop-only {
+  display: flex;
+}
+
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    padding: 4rem 0;
+  }
+
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  :root {
+    --card-padding: 1.4rem;
+    /* Moldura mais fina no celular para não roubar largura do texto */
+    --board-frame: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
