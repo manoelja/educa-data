@@ -1,0 +1,117 @@
+.footer {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: transparent;
+  border-left: 1px solid var(--card-border);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.2fr 1.2fr;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+}
+
+.footer-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 0.9rem;
+}
+
+.footer-title span {
+  color: var(--accent-color);
+}
+
+.footer-desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.footer-disclaimer {
+  margin-top: 1rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  opacity: 0.75;
+}
+
+.footer-column-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.footer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+}
+
+.footer-list a:hover {
+  color: var(--accent-color);
+}
+
+.footer-contact-text {
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 0.8rem;
+}
+
+.footer-mail {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  transition: var(--transition-fast);
+}
+
+.footer-mail:hover {
+  color: var(--accent-hover);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--card-border);
+  padding: 1.2rem 0;
+}
+
+.footer-bottom-content {
+  text-align: center;
+}
+
+.footer-bottom-content p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1000px) {
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+}

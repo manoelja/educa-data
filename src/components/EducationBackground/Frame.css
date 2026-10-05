@@ -1,0 +1,97 @@
+/* ============ Moldura de madeira (overlay separado) ============ */
+/* Fica com z-index alto para sempre aparecer por cima do conteúdo,
+   mas pointer-events: none garante que scroll e clique passam direto. */
+.board-frame-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.bo-frame {
+  position: absolute;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--frame-grain) 0 1px,
+    transparent 1px 9px
+  );
+}
+
+.bo-frame--top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--board-frame);
+  background-image:
+    repeating-linear-gradient(90deg, var(--frame-grain) 0 1px, transparent 1px 9px),
+    linear-gradient(180deg, var(--frame-1) 0%, var(--frame-2) 55%, var(--frame-3) 100%);
+  border-bottom: 1px solid var(--frame-joint);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.32);
+}
+
+.bo-frame--bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--board-frame);
+  background-image:
+    repeating-linear-gradient(90deg, var(--frame-grain) 0 1px, transparent 1px 9px),
+    linear-gradient(0deg, var(--frame-2) 0%, var(--frame-3) 70%, var(--frame-4) 100%);
+  border-top: 1px solid var(--frame-joint);
+  box-shadow: 0 -3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.bo-frame--left {
+  top: var(--board-frame);
+  bottom: var(--board-frame);
+  left: 0;
+  width: var(--board-frame);
+  background-image:
+    repeating-linear-gradient(0deg, var(--frame-grain) 0 1px, transparent 1px 9px),
+    linear-gradient(90deg, var(--frame-1) 0%, var(--frame-2) 60%, var(--frame-3) 100%);
+  border-right: 1px solid var(--frame-joint);
+  box-shadow: 3px 0 7px rgba(0, 0, 0, 0.3);
+}
+
+.bo-frame--right {
+  top: var(--board-frame);
+  bottom: var(--board-frame);
+  right: 0;
+  width: var(--board-frame);
+  background-image:
+    repeating-linear-gradient(0deg, var(--frame-grain) 0 1px, transparent 1px 9px),
+    linear-gradient(270deg, var(--frame-2) 0%, var(--frame-3) 60%, var(--frame-4) 100%);
+  border-left: 1px solid var(--frame-joint);
+  box-shadow: -3px 0 7px rgba(0, 0, 0, 0.28);
+}
+
+/* Cantos em meia-esquadria */
+.bo-frame-corner {
+  position: absolute;
+  width: var(--board-frame);
+  height: var(--board-frame);
+  background-image:
+    linear-gradient(
+      var(--miter),
+      transparent calc(50% - 0.5px),
+      var(--frame-joint) calc(50% - 0.5px),
+      var(--frame-joint) calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    ),
+    linear-gradient(var(--miter), var(--frame-1) 0 50%, var(--frame-3) 50% 100%);
+}
+
+.bo-frame-corner--tl,
+.bo-frame-corner--br {
+  --miter: 135deg;
+}
+
+.bo-frame-corner--tr,
+.bo-frame-corner--bl {
+  --miter: 45deg;
+}
+
+.bo-frame-corner--tl { top: 0; left: 0; }
+.bo-frame-corner--tr { top: 0; right: 0; }
+.bo-frame-corner--bl { bottom: 0; left: 0; }
+.bo-frame-corner--br { bottom: 0; right: 0; }

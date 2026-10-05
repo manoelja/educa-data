@@ -1,0 +1,86 @@
+/* ============ Dropdown (substitui o select nativo) ============
+   O gatilho é texto + chevron de giz; a lista aberta sai em vidro escuro,
+   com a mesma largura do gatilho e rolagem para dimensões longas (ex.: 60 idades). */
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.12rem 0;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-trigger:focus-visible {
+  outline: none;
+}
+
+.dropdown-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-chevron {
+  flex-shrink: 0;
+  color: var(--accent-color);
+  transition: transform 0.2s ease;
+}
+
+.dropdown-trigger[aria-expanded='true'] .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+/* ---------- Lista aberta ---------- */
+.dropdown-menu {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  width: 100%;
+  max-height: 210px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.dropdown-option {
+  padding: 0.36rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-option:hover {
+  color: var(--text-primary);
+  background: var(--card-bg);
+}
+
+.dropdown-option.is-active {
+  color: var(--text-primary);
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--accent-color);
+}

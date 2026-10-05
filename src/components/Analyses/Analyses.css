@@ -1,0 +1,138 @@
+/* Barras decorativas: só aparecem em telas largas, onde há espaço sobrando */
+.analyses-chart {
+  position: absolute;
+  right: 2.5rem;
+  bottom: 3rem;
+  z-index: 0;
+  width: min(26vw, 300px);
+  color: var(--text-secondary);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@media (max-width: 1200px) {
+  .analyses-chart {
+    display: none;
+  }
+}
+
+.analyses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.analysis-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.analysis-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.analysis-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--accent-color);
+  background: var(--accent-soft);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+}
+
+.analysis-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+}
+
+.trend-up {
+  color: var(--success);
+  background: var(--success-soft);
+  border-color: var(--success-soft);
+}
+
+.trend-down {
+  color: var(--warning);
+  background: var(--warning-soft);
+  border-color: var(--warning-soft);
+}
+
+.trend-flat {
+  color: var(--text-secondary);
+  background: var(--accent-soft);
+  border-color: var(--card-border);
+}
+
+.analysis-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--card-border);
+}
+
+.analysis-metric strong {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-unit {
+  margin-left: 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.metric-caption {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+/* Acentos por card */
+.analysis-card.accent-info {
+  --accent-color: var(--info);
+  --accent-soft: var(--info-soft);
+  --card-border: var(--info-soft);
+}
+
+.analysis-card.accent-warning {
+  --accent-color: var(--warning);
+  --accent-soft: var(--warning-soft);
+  --card-border: var(--warning-soft);
+}
+
+.analysis-card.accent-lavender {
+  --accent-color: var(--lavender);
+  --accent-soft: var(--lavender-soft);
+  --card-border: var(--lavender-soft);
+}
+
+@media (max-width: 1000px) {
+  .analyses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .analyses-grid {
+    grid-template-columns: 1fr;
+  }
+}

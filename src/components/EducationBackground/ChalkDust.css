@@ -1,0 +1,15 @@
+.chalk-dust {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Sem mix-blend-mode: sobre o quadro, partículas de giz em alfa baixo leem
+     como pó suspenso (misturar sujaria a superfície). */
+  opacity: calc(var(--scene-intensity) * 0.85);
+}
+
+@media (max-width: 700px) {
+  .chalk-dust {
+    opacity: calc(var(--scene-intensity) * 0.55);
+  }
+}

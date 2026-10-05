@@ -1,0 +1,54 @@
+/* Traço de giz colorido — o "evento de giz" de cada card.
+   `z-index: -1` mantém o desenho atrás do texto do card (o card cria um
+   contexto de empilhamento por causa do `backdrop-filter`). */
+.chalk-decor {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.1rem;
+  z-index: -1;
+  width: 108px;
+  height: auto;
+  overflow: visible;
+  pointer-events: none;
+  opacity: calc(0.55 * var(--scene-intensity));
+}
+
+.chalk-decor__stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Pó do giz: uma passada mais larga e apagada no mesmo caminho */
+.chalk-decor__stroke--dust {
+  stroke-width: 7;
+  filter: blur(2px);
+}
+
+/* Canto esquerdo (quando o direito já tem conteúdo) */
+.chalk-decor--left {
+  right: auto;
+  left: 1.6rem;
+}
+
+/* Versão em fluxo (usada no início da página, sob o botão) */
+.chalk-decor--flow {
+  position: static;
+  width: 152px;
+  margin: 2.2rem auto 0;
+}
+
+@media (max-width: 640px) {
+  .chalk-decor {
+    width: 84px;
+    opacity: calc(0.4 * var(--scene-intensity));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chalk-decor__stroke--dust {
+    filter: none;
+  }
+}

@@ -1,0 +1,71 @@
+.section-chalk {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* ============ Onda + traços tortos (padrão de cada seção) ============ */
+.wave-scribble {
+  position: absolute;
+  left: 12px;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  overflow: visible;
+  opacity: 0.45;
+}
+
+.wave-scribble--right {
+  left: auto;
+  right: 12px;
+}
+
+.wave-scribble__line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wave-scribble__dust {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: blur(3px);
+}
+
+.wave-scribble__dash {
+  fill: none;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+}
+
+/* ============ Rabiscos extras por seção ============ */
+.section-chalk__svg {
+  position: absolute;
+  height: auto;
+  overflow: visible;
+  opacity: calc(0.55 * var(--scene-intensity));
+}
+
+.section-chalk__line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.section-chalk__dust {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: blur(3px);
+}

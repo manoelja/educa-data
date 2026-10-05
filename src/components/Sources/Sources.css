@@ -1,0 +1,104 @@
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.source-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.source-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 0.9rem;
+  color: var(--accent-color);
+  background: var(--accent-soft);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+}
+
+.source-badge {
+  align-self: flex-start;
+  padding: 0.2rem 0.55rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+}
+
+/* Acentos por card */
+.source-card.accent-info {
+  --accent-color: var(--info);
+  --accent-soft: var(--info-soft);
+}
+
+.source-card.accent-lavender {
+  --accent-color: var(--lavender);
+  --accent-soft: var(--lavender-soft);
+}
+
+.source-card.accent-warning {
+  --accent-color: var(--warning);
+  --accent-soft: var(--warning-soft);
+}
+
+.sources-tech {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 2rem;
+  padding: 1.25rem 1.6rem;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+}
+
+.tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-chips li {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--accent-soft);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  transition: var(--transition-fast);
+}
+
+.tech-chips li:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+@media (max-width: 1000px) {
+  .sources-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .sources-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sources-tech {
+    border-radius: var(--radius-xl);
+  }
+}

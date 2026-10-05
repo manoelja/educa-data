@@ -1,0 +1,389 @@
+/* ============ Painel interativo (Censo 2022) ============
+   Ocupa a seção #dashboard: lista de indicadores à esquerda, valor + gráficos
+   à direita. Tudo transparente como os demais cards — a leitura vem da borda. */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Cresce com o conteúdo em vez de ser cortado: quem rola no mobile é a
+     seção (.app-section). No desktop o mínimo ainda ocupa a tela toda. */
+  min-height: 100%;
+  padding: 7rem 3rem 2rem;
+  /* Sem rolagem própria: a roda do mouse troca de seção (padrão do site).
+     O que passa da tela é absorvido pela altura fixa do card, que rola por dentro. */
+  overflow: hidden;
+}
+
+.dash-status {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.dash-status--erro {
+  color: var(--error);
+}
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 1.4rem;
+  align-items: start;
+}
+
+/* ---------- Lista de indicadores ---------- */
+.dash-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dash-list-label {
+  font-size: var(--card-label-size);
+  font-weight: var(--card-label-weight);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 0.2rem;
+}
+
+.dash-option {
+  --dash-accent: var(--accent-color);
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--card-border);
+  border-left: 3px solid transparent;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.dash-option:hover {
+  color: var(--text-primary);
+  border-color: var(--card-border);
+  border-left-color: var(--dash-accent);
+  background: var(--card-bg);
+}
+
+.dash-option.is-active {
+  color: var(--text-primary);
+  border-left-color: var(--dash-accent);
+  background: var(--card-bg);
+  box-shadow: inset 0 0 0 1px var(--dash-accent);
+}
+
+/* ---------- Painel principal ---------- */
+.dash-main {
+  --dash-accent: var(--accent-color);
+  position: relative;
+  /* Sem overflow: hidden — a lista do dropdown precisa poder transbordar */
+  padding: 1.4rem;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  /* Altura FIXA: trocar de indicador não redimensiona o card. O que varia
+     (nº de filtros, linhas das barras) é absorvido aqui dentro — os gráficos
+     esticam e rolam, em vez de esticar o card. */
+  display: flex;
+  flex-direction: column;
+  height: clamp(420px, calc(100vh - 15rem), 560px);
+}
+
+/* O brilho decorativo é recortado por esta camada, não pelo card */
+.dash-glow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.dash-glow::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -100px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+}
+
+.dash-head {
+  position: relative;
+  margin-bottom: 0.9rem;
+}
+
+.dash-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.dash-description {
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ---------- Subfiltros ---------- */
+.dash-filters {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.55rem 0.7rem;
+  padding: 0.85rem 0;
+  border-top: 1px dashed var(--card-border);
+  border-bottom: 1px dashed var(--card-border);
+}
+
+.dash-filters-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  align-self: center;
+  font-size: var(--card-label-size);
+  font-weight: var(--card-label-weight);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dash-accent);
+}
+
+/* Cada filtro é um mini-card: largura fixa para todas as caixas ficarem
+   do mesmo tamanho, com o rótulo em cima e o valor em destaque. */
+.dash-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  flex: 0 0 156px;
+  min-width: 0;
+  padding: 0.4rem 0.65rem 0.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: var(--transition);
+}
+
+.dash-filter:hover {
+  background: rgba(246, 250, 246, 0.07);
+  border-color: var(--dash-accent);
+}
+
+.dash-filter:focus-within {
+  border-color: var(--dash-accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.dash-filter--axis {
+  margin-left: auto;
+  border-style: dashed;
+}
+
+.dash-filter-label {
+  font-size: 0.54rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+
+
+.dash-value {
+  position: relative;
+  margin-top: 0.9rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px dashed var(--card-border);
+}
+
+.dash-value-number {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1;
+  background: var(--title-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dash-value-unit {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dash-accent);
+}
+
+.dash-value-scope {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: auto;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* ---------- Gráficos ----------
+   A grade ocupa o espaço que sobra do card de altura fixa; cada lista de
+   barras rola por conta própria, então nenhum indicador estica o card. */
+.dash-charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin-top: 1.1rem;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.dash-chart {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.dash-chart-title {
+  font-size: var(--card-label-size);
+  font-weight: var(--card-label-weight);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 0.7rem;
+}
+
+.dash-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+.dash-bars li {
+  display: grid;
+  grid-template-columns: 92px 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.dash-bar-label {
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dash-bars li.is-highlight .dash-bar-label {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.dash-bar-track {
+  display: block;
+  height: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.dash-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--dash-accent);
+  border-radius: var(--radius-full);
+}
+
+.dash-bars li.is-highlight .dash-bar-fill {
+  box-shadow: 0 0 10px var(--dash-accent);
+}
+
+.dash-bar-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.dash-bar-unit {
+  margin-left: 0.15rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.dash-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 1.2rem;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ---------- Acentos ---------- */
+.dashboard .accent-success { --dash-accent: var(--success); }
+.dashboard .accent-warning { --dash-accent: var(--warning); }
+.dashboard .accent-info { --dash-accent: var(--info); }
+.dashboard .accent-lavender { --dash-accent: var(--chalk-4); }
+
+@media (max-width: 900px) {
+  .dashboard {
+    padding: 5.5rem 1.25rem 1.5rem;
+    justify-content: flex-start;
+  }
+
+  .dash-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  /* No mobile os gráficos empilham: altura fixa apertaria demais, então o
+     card volta a crescer com o conteúdo. */
+  .dash-main {
+    height: auto;
+  }
+
+  .dash-charts {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* As listas (localidade e série) viram caixa como no desktop: altura
+     limitada e rolagem interna. Sem isso, dimensões longas (60 idades)
+     esticariam o card em uma página infinita de linhas. */
+  .dash-bars {
+    max-height: 40vh;
+    max-height: 40dvh;
+    padding: 0.55rem 0.6rem;
+    border: 1px dashed var(--card-border);
+    border-radius: 14px;
+  }
+
+  .dash-bars li {
+    grid-template-columns: 80px 1fr auto;
+  }
+
+  /* Os filtros se abrem de duas em duas caixas, ocupando a linha inteira:
+     alvos de toque maiores e sem sobra de espaço à direita. */
+  .dash-filter {
+    flex: 1 1 calc(50% - 0.35rem);
+  }
+}

@@ -1,0 +1,45 @@
+/* O scrim só reforça o contraste do texto sobre o quadro — bem mais leve que
+   quando havia uma cena clara por baixo. Aqui, o tema padrão (quadro verde). */
+.scene {
+  --scene-scrim-1: rgba(13, 34, 26, 0.5);
+  --scene-scrim-2: rgba(13, 34, 26, 0.16);
+  --scene-scrim-3: rgba(13, 34, 26, 0.4);
+  --scene-grain-opacity: 0.09;
+
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Variante escura: a ardósia precisa de um scrim um pouco mais fechado */
+html.dark-theme .scene {
+  --scene-scrim-1: rgba(6, 15, 12, 0.62);
+  --scene-scrim-2: rgba(6, 15, 12, 0.24);
+  --scene-scrim-3: rgba(6, 15, 12, 0.5);
+  --scene-grain-opacity: 0.1;
+}
+
+/* ============ Scrim de contraste ============ */
+.scene-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--scene-scrim-1) 0%,
+    var(--scene-scrim-2) 28%,
+    var(--scene-scrim-3) 66%,
+    var(--scene-scrim-1) 100%
+  );
+}
+
+/* ============ Grão ============ */
+.scene-grain {
+  position: absolute;
+  inset: 0;
+  opacity: var(--scene-grain-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
