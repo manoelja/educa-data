@@ -72,8 +72,8 @@ describe('landing — seções', () => {
     const { container } = render(<Footer />)
 
     expect(screen.getByText('Landing page do projeto de análise de dados abertos da educação básica brasileira. Feito para tornar indicadores educacionais públicos acessíveis a quem decide e a quem pesquisa.')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /contato@educadata\.org\.br/ })).toBeInTheDocument()
     expect(container.querySelectorAll('.footer-list')).toHaveLength(2)
+    expect(container.querySelectorAll('.footer-social-icons .social-icon-btn')).toHaveLength(4)
   })
 })
 

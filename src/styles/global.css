@@ -158,6 +158,18 @@ body {
   color: #10201a;
 }
 
+/* Sem o flash azul do navegador ao clicar/toque num link ou botão — no quadro
+   escuro ele aparecia como um retângulo azul sobre o elemento. O foco de
+   teclado continua visível, agora no giz amarelo. */
+a,
+button,
+input,
+label,
+summary,
+[role='button'] {
+  -webkit-tap-highlight-color: transparent;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -185,6 +197,12 @@ p {
 button {
   font-family: inherit;
   cursor: pointer;
+}
+
+/* Foco visível só na navegação por teclado (o clique/toque não pinta nada) */
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 /* Scrollbar — estilo giz nas seções com overflow */
