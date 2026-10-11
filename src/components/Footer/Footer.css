@@ -40,6 +40,13 @@
   opacity: 0.75;
 }
 
+.footer-author-credit {
+  margin-top: 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
 .footer-column-title {
   font-size: 0.68rem;
   font-weight: 800;
@@ -75,18 +82,74 @@
   margin-bottom: 0.8rem;
 }
 
-.footer-mail {
+/* Botões de rede social — o fundo é o do botão fantasma do resto do site */
+.social-icon-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.83rem;
-  font-weight: 700;
-  color: var(--accent-color);
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-primary);
   transition: var(--transition-fast);
 }
 
-.footer-mail:hover {
-  color: var(--accent-hover);
+.social-icon-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.social-icon-btn img {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+/* Cartão "Sobre o desenvolvedor" que abre pelo ícone de pessoa */
+.developer-about-card {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+
+.developer-about-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.developer-about-header h4 {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--accent-color);
+}
+
+.close-about-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+}
+
+.close-about-btn:hover {
+  color: var(--accent-color);
+}
+
+.developer-about-text {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
 }
 
 .footer-bottom {
