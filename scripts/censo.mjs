@@ -3,7 +3,7 @@
  * censo.mjs
  *
  * Lê as planilhas .xlsx do Censo Demográfico 2022 (IBGE/SIDRA) em
- * `public/censo-sidra-ibge/` e gera `public/data/censo2022.json` — a base
+ * `censo-sidra-ibge/` e gera `public/data/censo2022.json` — a base
  * achatada, pronta para a landing consumir via fetch (sem entrar no bundle).
  *
  * Por que colunar: as planilhas do SIDRA têm até 400+ colunas. Guardar as
@@ -35,7 +35,7 @@ const require = createRequire(import.meta.url);
 const XLSX = require('xlsx');
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const BASE_DIR = join(ROOT, 'public', 'censo-sidra-ibge');
+const BASE_DIR = join(ROOT, 'censo-sidra-ibge');
 const DEFAULT_OUT = join(ROOT, 'public', 'data', 'censo2022.json');
 
 /** Localidades mantidas no recorte padrão (Brasil + UFs). */

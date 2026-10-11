@@ -11,7 +11,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "data:censo": "node scripts/build-censo.mjs"
+    "data:censo": "node scripts/censo.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",

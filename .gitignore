@@ -20,9 +20,10 @@ dist-ssr
 # Coverage
 coverage
 
-# Base de dados pública local (planilhas brutas, processadas em JSON)
+# Base de dados pública: as planilhas brutas (.xlsx) ficam fora do git, mas o
+# JSON achatado em `public/data/` é versionado — é ele que a landing baixa.
 censo-sidra-ibge/
-data/
+/data/
 
 # Editor directories and files
 .vscode/*
